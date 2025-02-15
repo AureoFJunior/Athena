@@ -1,6 +1,21 @@
 @Athena.Api_HostAddress = http://localhost:5250
 
-GET {{Athena.Api_HostAddress}}/weatherforecast/
+### Get all data entries
+GET {{Athena.Api_HostAddress}}/dataentries
 Accept: application/json
 
-###
+### Get all data entries filtered by category
+GET {{Athena.Api_HostAddress}}/dataentries?category=sfw&pageSize=10&pageNumber=1&descending=true
+Accept: application/json
+
+### Get all data entries filtered by tag
+GET {{Athena.Api_HostAddress}}/dataentries?tag=uniform&pageSize=10&pageNumber=1&descending=true
+Accept: application/json
+
+### Get all data entries ordered by rating (descending)
+GET {{Athena.Api_HostAddress}}/dataentries?orderBy=rating&pageSize=10&pageNumber=1&descending=true
+Accept: application/json
+
+### Get data entry by id
+GET {{Athena.Api_HostAddress}}/dataentries/1
+Accept: application/json

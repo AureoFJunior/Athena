@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Athena.Infrastructure\Athena.Infrastructure.csproj" />
     <ProjectReference Include="..\Athena.Jobs\Athena.Jobs.csproj" />
   </ItemGroup>
 </Project>

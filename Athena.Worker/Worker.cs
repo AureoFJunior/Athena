@@ -1,23 +1,22 @@
+using Athena.Jobs;
+using Hangfire;
+
 namespace Athena.Worker;
 
 public class Worker : BackgroundService
 {
-    private readonly ILogger<Worker> _logger;
+    private readonly IRecurringJobManager _recurringJobManager;
 
-    public Worker(ILogger<Worker> logger)
+    public Worker(IRecurringJobManager recurringJobManager)
     {
-        _logger = logger;
+        _recurringJobManager = recurringJobManager;
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
-        {
-            if (_logger.IsEnabled(LogLevel.Information))
-            {
-                _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            }
-            await Task.Delay(1000, stoppingToken);
-        }
+        _recurringJobManager.AddOrUpdate<DataUpsertJob>(
+        "DataUpsertJob",
+        job => job.ExecuteAsync(),
+        Cron.MinuteInterval(1));
     }
 }
